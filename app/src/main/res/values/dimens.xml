@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="display_1">2</integer>
+    <integer name="display_2">1</integer>
+    <integer name="display_3">7</integer>
+
+    <integer name="klav_1">1</integer>
+
+</resources>
