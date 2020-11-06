@@ -5,6 +5,8 @@
     <integer name="display_3">7</integer>
     <integer name="display_11">7</integer>
     <integer name="display_12">3</integer>
+    <integer name="display_111">8</integer>
+    <integer name="display_112">2</integer>
 
     <integer name="klav_1">1</integer>
 

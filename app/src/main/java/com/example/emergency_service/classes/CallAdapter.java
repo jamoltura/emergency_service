@@ -1,9 +1,8 @@
 package com.example.emergency_service.classes;
 
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
+import android.widget.*;
 import com.example.emergency_service.Play_Activity;
 import com.example.emergency_service.R;
 import com.example.emergency_service.interfaces.OnCompilePlay;
@@ -48,6 +47,36 @@ public class CallAdapter implements OnCompilePlay {
     }
 
     private void createAdapter(){
+
+        init();
+
+        listView.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                if (media != null){
+                    if (!media.getPlayMedia().getMediaController().isShowing()){
+                        media.getPlayMedia().getMediaController().show();
+                    }
+                } else {
+                    media = new EmergencyMedia(play_activity);
+                    media.setOnCompilePlay(getCallAdapter());
+                    ListView listView = (ListView) play_activity.findViewById(R.id.list);
+                    media.startOnlyMedia(listView, position);
+                }
+            }
+        });
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                showPopupMenu(view, position);
+                return true;
+            }
+        });
+    }
+
+    private void init(){
         ArrayList<String> restemp = fileManager.getListFileCall();
 
         ArrayList<String> res = new ArrayList<String>();
@@ -97,23 +126,38 @@ public class CallAdapter implements OnCompilePlay {
 
         listView.setAdapter(simpleAdapter);
         //  listView.setItemsCanFocus(false);
+    }
 
-        listView.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
+    private void showPopupMenu(View v, final int position){
+        PopupMenu popupMenu = new PopupMenu(play_activity, v);
+        popupMenu.inflate(R.menu.popup);
+
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public boolean onMenuItemClick(MenuItem item) {
 
-                if (media != null){
-                    if (!media.getPlayMedia().getMediaController().isShowing()){
-                        media.getPlayMedia().getMediaController().show();
-                    }
-                } else {
-                    media = new EmergencyMedia(play_activity);
-                    media.setOnCompilePlay(getCallAdapter());
-                    ListView listView = (ListView) play_activity.findViewById(R.id.list);
-                    media.startOnlyMedia(listView, position);
+                switch (item.getItemId()){
+                    case R.id.del:
+                        if (fileManager.delFile(position)) {
+                            String name = fileManager.getNameDelFile();
+                            fileManager.init();
+                            init();
+                            Toast.makeText(play_activity, "Udaleno : " + name, Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+                    case R.id.del_all:
+                        int count = fileManager.delAllFile();
+                        if (count > 0) {
+                            fileManager.init();
+                            init();
+                            Toast.makeText(play_activity, "Udaleno : " + count + " fayl", Toast.LENGTH_SHORT).show();
+                        }
                 }
+                return true;
             }
         });
+
+        popupMenu.show();
     }
 
     private CallAdapter getCallAdapter(){

@@ -1,10 +1,14 @@
 package com.example.emergency_service.classes;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class FileManager {
 
@@ -21,17 +25,22 @@ public class FileManager {
     //  Свойства /////////////////////////
     private ArrayList<String> listFileCall= new ArrayList<String>();
 
+    // Имя удаленый файл /////////////////
+    private String nameDelFile;
+
 
     public FileManager(Context context) {
         this.context = context;
         init();
     }
 
-    private void init(){
+    public void init(){
 
         setPathApp(context.getFilesDir().getAbsolutePath());
 
         pathCallAudio = _addDirectory(getPathApp() + getCallAudio());
+
+        setNameDelFile("");
 
         if (IsDirectory(getPathCallAudio())) {
             listFileCall();
@@ -104,6 +113,40 @@ public class FileManager {
         return null;
     }
 
+    public boolean delFile(int index){
+
+        int count = countFileCall();
+
+        if (count > 0){
+            File file = new File(getListFileCall().get(index));
+            if (file.exists()){
+                setNameDelFile(file.getName());
+                return file.delete();
+            }
+        }
+
+        return false;
+    }
+
+    public int delAllFile(){
+
+        int count = countFileCall();
+
+        int count_del = 0;
+
+        if (count > 0){
+            for (int i = 0; i < count; i++) {
+                File file = new File(getListFileCall().get(i));
+                if (file.exists()) {
+                    if(file.delete()){
+                        count_del++;
+                    }
+                }
+            }
+        }
+        return count_del;
+    }
+
     private int countFile(String value){
         File file = new File(value);
         File[] files = file.listFiles();
@@ -111,8 +154,13 @@ public class FileManager {
     }
 
     public String getNowFile(String value){
-        int count = countFileCall();
-        return getPathCallAudio()+ "/" + value + "_" + count + ".3gp";
+
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy k:mm:ss");
+
+        Date date = Calendar.getInstance().getTime();
+        String date_str = format.format(date);
+
+        return getPathCallAudio()+ "/" + value + "_" + date_str + ".3gp";
     }
 
     public static File getTempFile(Context context){
@@ -145,5 +193,13 @@ public class FileManager {
 
     public String getCallAudio() {
         return "/CallAudio";
+    }
+
+    public String getNameDelFile() {
+        return nameDelFile;
+    }
+
+    public void setNameDelFile(String nameDelFile) {
+        this.nameDelFile = nameDelFile;
     }
 }

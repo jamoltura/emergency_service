@@ -25,4 +25,6 @@ public class Play_Activity extends AppCompatActivity {
         adapter.onDestroy();
         super.onDestroy();
     }
+
+
 }

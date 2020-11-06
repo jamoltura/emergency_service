@@ -30,7 +30,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             app:srcCompat="@drawable/pojarniy"
-                            android:id="@+id/imageView"
+                            android:id="@+id/img_logo"
                             android:adjustViewBounds="true"
                             android:scaleType="fitCenter"
                             android:layout_margin="@dimen/image_101_margin"/>
@@ -76,8 +76,19 @@
                 <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="@integer/display_11">
+                        android:layout_weight="@integer/display_111">
 
+                    <TextView
+                            android:text=""
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/text_time"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/textSeze_name"
+                            android:gravity="center"
+                            android:layout_marginTop="10dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_alignParentTop="true"/>
                     <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -85,12 +96,14 @@
                             android:id="@+id/img_call_stop"
                             android:adjustViewBounds="true"
                             android:scaleType="center"
-                            android:layout_centerInParent="true"/>
+                            android:layout_marginBottom="10dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_alignParentBottom="true"/>
                 </RelativeLayout>
                 <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="@integer/display_12">
+                        android:layout_weight="@integer/display_112">
 
                 </RelativeLayout>
             </LinearLayout>

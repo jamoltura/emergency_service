@@ -7,4 +7,8 @@
     <string name="servis_103">Sog`liqni saqlash</string>
     <string name="servis_104">Gaz xavfsizligi</string>
     <string name="servis_1050">Favqulotda vaziyatlar xizmati</string>
+    <string name="servis_worn">Raqam terishda xatolik</string>
+
+    <string name="delete">O`chirish</string>
+    <string name="delete_all">Hammasini o`chirish</string>
 </resources>
