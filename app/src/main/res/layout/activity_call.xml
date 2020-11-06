@@ -7,4 +7,93 @@
         android:layout_height="match_parent"
         tools:context=".Call_Activity">
 
+    <LinearLayout
+            android:orientation="vertical"
+            android:background="@color/colorfon101"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="@integer/display_11">
+
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="@integer/display_11">
+
+                    <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:srcCompat="@drawable/pojarniy"
+                            android:id="@+id/imageView"
+                            android:adjustViewBounds="true"
+                            android:scaleType="fitCenter"
+                            android:layout_margin="@dimen/image_101_margin"/>
+                </RelativeLayout>
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="@integer/display_12">
+
+                    <TextView
+                            android:text="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/textSeze_name"
+                            android:gravity="center"
+                            android:id="@+id/text_name"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginTop="10dp"/>
+
+                    <TextView
+                            android:text="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/textSeze"
+                            android:gravity="center"
+                            android:id="@+id/text_number"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginBottom="10dp"/>
+                </RelativeLayout>
+            </LinearLayout>
+        </RelativeLayout>
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="@integer/display_12">
+
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="@integer/display_11">
+
+                    <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:srcCompat="@drawable/ic_call_stop"
+                            android:id="@+id/img_call_stop"
+                            android:adjustViewBounds="true"
+                            android:scaleType="center"
+                            android:layout_centerInParent="true"/>
+                </RelativeLayout>
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="@integer/display_12">
+
+                </RelativeLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

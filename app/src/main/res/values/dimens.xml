@@ -3,7 +3,22 @@
     <integer name="display_1">2</integer>
     <integer name="display_2">1</integer>
     <integer name="display_3">7</integer>
+    <integer name="display_11">7</integer>
+    <integer name="display_12">3</integer>
 
     <integer name="klav_1">1</integer>
+
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="appbar_padding_top">8dp</dimen>
+    <dimen name="separator">10dp</dimen>
+    <dimen name="childer_vertical_margin">3dp</dimen>
+    <dimen name="image_padding">10dp</dimen>
+
+    <dimen name="image_101_margin">70dp</dimen>
+
+    <dimen name="textSeze_name">18sp</dimen>
+    <dimen name="textSeze">36sp</dimen>
 
 </resources>

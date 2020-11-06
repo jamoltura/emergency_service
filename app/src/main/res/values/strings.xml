@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">emergency_service</string>
+    <string name="app_name">Shoshilinch xizmati</string>
+    <string name="play_list">Play list</string>
+
+    <string name="servis_101">Yong`in xavfsizligi</string>
+    <string name="servis_102">Ichki ishlar</string>
+    <string name="servis_103">Sog`liqni saqlash</string>
+    <string name="servis_104">Gaz xavfsizligi</string>
+    <string name="servis_1050">Favqulotda vaziyatlar xizmati</string>
 </resources>

@@ -1,21 +1,34 @@
 package com.example.emergency_service;
 
+import android.Manifest;
 import android.content.Intent;
-import android.view.View;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.content.pm.PackageManager;
+import android.text.Layout;
+import android.view.*;
+import android.widget.*;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import com.example.emergency_service.classes.EmergencyMedia;
+import com.example.emergency_service.classes.FileManager;
+
+import java.io.*;
 
 public class MainActivity extends AppCompatActivity {
+
+    final String recordAudio = Manifest.permission.RECORD_AUDIO;
+    final int MY_RECORDAUDIO = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if(!getPermission(recordAudio)){
+            RequestPermission(recordAudio, MY_RECORDAUDIO);
+        }
 
         ImageView img_one = (ImageView) findViewById(R.id.img_one);
         img_one.setOnClickListener(click_one);
@@ -56,8 +69,23 @@ public class MainActivity extends AppCompatActivity {
         ImageView img_call = (ImageView) findViewById(R.id.img_call);
         img_call.setOnClickListener(click_call);
 
-        ImageButton img_backspace = (ImageButton) findViewById(R.id.img_backspace);
+        final ImageButton img_backspace = (ImageButton) findViewById(R.id.img_backspace);
         img_backspace.setOnClickListener(click_backspaspce);
+
+        img_backspace.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+
+                img_backspace.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+
+                int width = img_backspace.getWidth();
+
+                TextView textView = (TextView) findViewById(R.id.text_call);
+                RelativeLayout.LayoutParams params1 = (RelativeLayout.LayoutParams) textView.getLayoutParams();
+                params1.setMargins(width, 0,0,0);
+                textView.setLayoutParams(params1);
+            }
+        });
     }
 
     View.OnClickListener click_one = new View.OnClickListener() {
@@ -148,14 +176,13 @@ public class MainActivity extends AppCompatActivity {
     View.OnClickListener click_call = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (getValidNumber()){
+            if (!getValidNumber()){
                 Intent intent = new Intent(v.getContext(), Call_Activity.class);
                 intent.putExtra("msg", getNumber());
                 startActivity(intent);
-            }else {
-                // TODO audio error
+                TextView text_call = (TextView) findViewById(R.id.text_call);
+                text_call.setText("");
             }
-
         }
     };
 
@@ -184,11 +211,49 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean getValidNumber(){
         String value = getNumber();
-        return value.equals("101") || value.equals("102") || value.equals("103") || value.equals("104") || value.equals("1050");
+        return value.isEmpty();
     }
 
     private String getNumber(){
         TextView text_call = (TextView) findViewById(R.id.text_call);
         return text_call.getText().toString();
+    }
+
+    private Boolean getPermission(String value){
+        return (ContextCompat.checkSelfPermission(this, value) == PackageManager.PERMISSION_GRANTED);
+    }
+
+    private void RequestPermission(String value, int result){
+        ActivityCompat.requestPermissions(this, new String[]{value}, result);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == MY_RECORDAUDIO){
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                if (!getPermission(recordAudio)){
+                    RequestPermission(recordAudio, MY_RECORDAUDIO);
+                }
+            }
+        }
+    }
+
+    @Override
+    public boolean onCreatePanelMenu(int featureId, @NonNull Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.item1:{
+                Intent intent = new Intent(getApplicationContext(), Play_Activity.class);
+                startActivity(intent);
+            }
+        }
+        return true;
     }
 }
